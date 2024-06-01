@@ -7,18 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9E4001512C0A115900235419 /* NotificationSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9E4001502C0A115900235419 /* NotificationSetting.swift */; };
+		9E41C83D2BDE98170062A7A9 /* Adhan.m4r in Resources */ = {isa = PBXBuildFile; fileRef = 9E41C83C2BDE93B60062A7A9 /* Adhan.m4r */; };
 		9EAC80722BD94332000B3308 /* PriereSwuiftUIApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAC80712BD94332000B3308 /* PriereSwuiftUIApp.swift */; };
 		9EAC80742BD94332000B3308 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EAC80732BD94332000B3308 /* ContentView.swift */; };
 		9EAC80762BD94334000B3308 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EAC80752BD94334000B3308 /* Assets.xcassets */; };
 		9EAC80792BD94334000B3308 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9EAC80782BD94334000B3308 /* Preview Assets.xcassets */; };
+		9ED3B9812BEFE34C00774CC5 /* ViewCoran.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3B9802BEFE34C00774CC5 /* ViewCoran.swift */; };
+		9ED3B9832BEFE4A100774CC5 /* PrayerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3B9822BEFE4A100774CC5 /* PrayerView.swift */; };
+		9ED3B9852BEFE60900774CC5 /* BoussolView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ED3B9842BEFE60900774CC5 /* BoussolView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		9E4001502C0A115900235419 /* NotificationSetting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationSetting.swift; sourceTree = "<group>"; };
+		9E41C83C2BDE93B60062A7A9 /* Adhan.m4r */ = {isa = PBXFileReference; lastKnownFileType = file; path = Adhan.m4r; sourceTree = "<group>"; };
+		9E550F062BDA5169007EEB04 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9EAC806E2BD94332000B3308 /* PriereSwuiftUI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PriereSwuiftUI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9EAC80712BD94332000B3308 /* PriereSwuiftUIApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriereSwuiftUIApp.swift; sourceTree = "<group>"; };
 		9EAC80732BD94332000B3308 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		9EAC80752BD94334000B3308 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9EAC80782BD94334000B3308 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		9ED3B9802BEFE34C00774CC5 /* ViewCoran.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewCoran.swift; sourceTree = "<group>"; };
+		9ED3B9822BEFE4A100774CC5 /* PrayerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrayerView.swift; sourceTree = "<group>"; };
+		9ED3B9842BEFE60900774CC5 /* BoussolView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoussolView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,9 +62,12 @@
 		9EAC80702BD94332000B3308 /* PriereSwuiftUI */ = {
 			isa = PBXGroup;
 			children = (
+				9ED3B97F2BEFE25800774CC5 /* Views */,
 				9EAC80712BD94332000B3308 /* PriereSwuiftUIApp.swift */,
 				9EAC80732BD94332000B3308 /* ContentView.swift */,
+				9E41C83C2BDE93B60062A7A9 /* Adhan.m4r */,
 				9EAC80752BD94334000B3308 /* Assets.xcassets */,
+				9E550F062BDA5169007EEB04 /* Info.plist */,
 				9EAC80772BD94334000B3308 /* Preview Content */,
 			);
 			path = PriereSwuiftUI;
@@ -65,6 +79,17 @@
 				9EAC80782BD94334000B3308 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		9ED3B97F2BEFE25800774CC5 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				9ED3B9802BEFE34C00774CC5 /* ViewCoran.swift */,
+				9ED3B9822BEFE4A100774CC5 /* PrayerView.swift */,
+				9ED3B9842BEFE60900774CC5 /* BoussolView.swift */,
+				9E4001502C0A115900235419 /* NotificationSetting.swift */,
+			);
+			path = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -125,6 +150,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E41C83D2BDE98170062A7A9 /* Adhan.m4r in Resources */,
 				9EAC80792BD94334000B3308 /* Preview Assets.xcassets in Resources */,
 				9EAC80762BD94334000B3308 /* Assets.xcassets in Resources */,
 			);
@@ -137,8 +163,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ED3B9812BEFE34C00774CC5 /* ViewCoran.swift in Sources */,
+				9ED3B9852BEFE60900774CC5 /* BoussolView.swift in Sources */,
 				9EAC80742BD94332000B3308 /* ContentView.swift in Sources */,
 				9EAC80722BD94332000B3308 /* PriereSwuiftUIApp.swift in Sources */,
+				9ED3B9832BEFE4A100774CC5 /* PrayerView.swift in Sources */,
+				9E4001512C0A115900235419 /* NotificationSetting.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -275,6 +305,7 @@
 				DEVELOPMENT_TEAM = VJWLU5Z293;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PriereSwuiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -304,6 +335,7 @@
 				DEVELOPMENT_TEAM = VJWLU5Z293;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = PriereSwuiftUI/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
