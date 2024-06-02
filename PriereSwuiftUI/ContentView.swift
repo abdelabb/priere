@@ -10,6 +10,7 @@ import CoreLocation
 import UserNotifications
 import AVFoundation
 
+// teste
 enum NotificationMode: String, CaseIterable {
     case silencieux
     case desactiver
