@@ -7,6 +7,6 @@
 		<string>Adhan.m4r</string>
 	</array>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Nous avon besoin de votre position</string>
+	<string>Nous avons besoin d&apos;accéder à votre localisation pour déterminer la direction de la Qibla et les Horraires de Prieres</string>
 </dict>
 </plist>

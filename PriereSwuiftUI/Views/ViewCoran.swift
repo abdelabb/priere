@@ -23,7 +23,7 @@ struct ViewCoran: View {
         CustomTabView(selectedTab: $selectedTab)
         InnerView(progress: progress)
 
-        //Text("a")
+
                
     }
  
@@ -37,23 +37,7 @@ struct ViewCoran: View {
             
         }
     }
-//    struct ContentView: View {
-//        var body: some View {
-//            Text("Content for Prayer Tab")
-//        }
-//    }
-//
-//    struct BoussolView: View {
-//        var body: some View {
-//            Text("Content for Boussol Tab")
-//        }
-//    }
-//
-//    struct PrayerView: View {
-//        var body: some View {
-//            Text("Content for Coran Tab")
-//        }
-//    }
+
     
     protocol TabViewProvider{
         associatedtype Content: View
@@ -75,6 +59,7 @@ struct ViewCoran: View {
         
         
         func provideTabView(selectedTab: Binding<String>) -> some View {
+            
             
                 TabView(selection: selectedTab) {
                     
@@ -116,6 +101,8 @@ struct ViewCoran: View {
                     .tabItem {
                         Label("Coran", systemImage: "book")
                     }
+                    .safeAreaPadding()
+
                 }
             
             

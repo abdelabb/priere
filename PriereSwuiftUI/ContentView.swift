@@ -96,14 +96,19 @@ class NotificationSettings: ObservableObject {
             @AppStorage("selectedisha")  var selectedisha: NotificationMode = .normal
         
         @State private var isRefreshing = false
-        
-        
+
         var body: some View {
-            
-            VStack{
+           // NotificationSound()
+
+  
+               
+           
+            VStack {
+                
+                
                 
                 Text("\(countryName) : \(cityName)").padding(.bottom,5)
-                
+                    .padding(.top,20)
                 
                 if let timeUntilNextPrayer = timeUntilNextPrayer {
                     
@@ -121,47 +126,64 @@ class NotificationSettings: ObservableObject {
                 } else {
                     Text("Impossible de calculer le temps restant jusqu'à la prochaine prière")
                 }
+            }
+                    
+                    
+            VStack {
+                Text(getFormattedDate())
+                    .bold()
+                    .font(.system(size: 20))
+                    //.padding(.top,10)
                 
-                VStack {
+                
+                
+                
+                
+                
+                List{
                     
-                    NotificationSound()
                     
-                    List{
-                        if let prayerTimes = prayerTimes{
-                            
-                            PrayertimeRow(prayer: "Fajr", time: prayerTimes.Fajr, selectedMode: $selectedFajr)
-                            PrayertimeRow(prayer: "Dhuhr", time: prayerTimes.Dhuhr, selectedMode: $selectedDhor)
-                            PrayertimeRow(prayer: "Asr", time: prayerTimes.Asr, selectedMode: $selectedAsr)
-                            PrayertimeRow(prayer: "Maghrib",time: prayerTimes.Maghrib, selectedMode:  $selectedMaghreb)
-                            PrayertimeRow(prayer: "Isha",time: prayerTimes.Isha, selectedMode: $selectedisha)
-                            
-                        }else{
-                            
-                            Text("Donnees manquantess")
-                        }
+                    if let prayerTimes = prayerTimes{
+                        
+                        PrayertimeRow(prayer: "Fajr", time: prayerTimes.Fajr, selectedMode: $selectedFajr)
+                        PrayertimeRow(prayer: "Dhuhr", time: prayerTimes.Dhuhr, selectedMode: $selectedDhor)
+                        PrayertimeRow(prayer: "Asr", time: prayerTimes.Asr, selectedMode: $selectedAsr)
+                        PrayertimeRow(prayer: "Maghrib",time: prayerTimes.Maghrib, selectedMode:  $selectedMaghreb)
+                        PrayertimeRow(prayer: "Isha",time: prayerTimes.Isha, selectedMode: $selectedisha)
+                        
+                    }else{
+                        
+                        Text("Donnees manquantess")
                     }
                     
+                }
+            }
+                            .listStyle(PlainListStyle())
+                            //.background(Color.red)
+                                    
+                            
+
+                        .safeAreaPadding(.top,65)
+                    
+            
                     .refreshable {
                         refreshData()
                     }
                     
-                    
-                    
-                }
+                    .onAppear {
+                        print("La méthode onAppear est appelée")
+                        
+                        executerOnappear()
                 
-                
-                .onAppear {
-                    print("La méthode onAppear est appelée")
-                    
-                    executerOnappear()
-                }
-            
-            }
-            
             
         }
+                     
+                    }
 
+              
         
+        
+
         private func refreshData() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
                 
@@ -169,6 +191,14 @@ class NotificationSettings: ObservableObject {
                 isRefreshing = false
             }
         }
+        
+        func getFormattedDate() -> String {
+              let date = Date()
+              let formatter = DateFormatter()
+              formatter.dateFormat = "dd MMMM, HH:mm" // Format : jour mois, heure:minute
+              formatter.locale = Locale(identifier: "fr_FR") // Pour formater en français
+              return formatter.string(from: date)
+          }
         
         func nextPrayerString(prayer: PrayerTimings) -> PrayerType? {
             let currenteDate = Date.now
@@ -300,6 +330,8 @@ class NotificationSettings: ObservableObject {
             
             return formatter.string(from: timeInterval)!
         }
+      
+
         
         struct PrayertimeRow: View {
             var prayer: String
@@ -497,8 +529,10 @@ class NotificationSettings: ObservableObject {
             
             
         }
+            
 
 }
+
 
     
     class LocationManager: NSObject, ObservableObject, CLLocationManagerDelegate {
@@ -506,22 +540,52 @@ class NotificationSettings: ObservableObject {
         
         @Published var location: CLLocation?
         @Published var isLoading = false
+        @Published var heading: CLHeading?
+        @Published var qiblaDirection: Double = 0.0
         
         override init() {
             super.init()
             locationManager.delegate = self
             locationManager.requestWhenInUseAuthorization()
             locationManager.startUpdatingLocation()
+            locationManager.startUpdatingHeading()
+
         }
         
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             guard let location = locations.last else { return }
             self.location = location
+            calculateQiblaDirection()
+
             
             
             isLoading = false
         }
+        func locationManager(_ manager: CLLocationManager, didUpdateHeading newHeading: CLHeading) {
+              self.heading = newHeading
+              calculateQiblaDirection()
+          }
+        func calculateQiblaDirection() {
+               guard let location = location else { return }
+               
+               let makkahLatitude = 21.4225
+               let makkahLongitude = 39.8262
+
+               let lat1 = location.coordinate.latitude * .pi / 180
+               let lon1 = location.coordinate.longitude * .pi / 180
+               let lat2 = makkahLatitude * .pi / 180
+               let lon2 = makkahLongitude * .pi / 180
+
+               let deltaLon = lon2 - lon1
+               let y = sin(deltaLon) * cos(lat2)
+               let x = cos(lat1) * sin(lat2) - sin(lat1) * cos(lat2) * cos(deltaLon)
+               let qiblaBearing = atan2(y, x) * 180 / .pi
+               let qiblaDirection = (qiblaBearing + 360).truncatingRemainder(dividingBy: 360)
+
+               self.qiblaDirection = qiblaDirection
+           }
     }
+
 
 #Preview {
     ContentView()
