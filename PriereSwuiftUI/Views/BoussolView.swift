@@ -14,9 +14,11 @@ struct BoussolView: View {
         VStack {
             if let heading = locationManager.heading {
                 let angle = Angle(degrees: locationManager.qiblaDirection - heading.magneticHeading)
+                
                 CompassNeedle(angle: angle)
-                    .frame(width: 200, height: 200)
+                    //.frame(width: 200, height: 200)
                     .padding()
+                
                 
                 Text("Direction de la Qibla")
                     .font(.headline)
@@ -41,14 +43,15 @@ struct CompassNeedle: View {
         VStack {
             Image("icons8")
             //Spacer()
-            //.padding()
+            .padding()
                
                 
             
             ZStack {
                 
                 Circle()
-                    .stroke(lineWidth: 2)
+                    .stroke(lineWidth: 10)
+                    .frame(width: 200, height: 200)
                     .foregroundColor(.gray)
                     
 
@@ -63,9 +66,9 @@ struct CompassNeedle: View {
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(.red)
-                        .offset(y: -80)
+                        .offset(y: -115)
                     // .rotationEffect(angle)
-                    // Spacer()
+//                     Spacer()
                 }
                 .rotationEffect(angle)
                 

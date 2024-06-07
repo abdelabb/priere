@@ -22,8 +22,10 @@ struct PrayerView: View {
                        }) {
                            Text(selectedSurah.englishName)
                                .font(.headline)
-                               .padding()
-                               .foregroundColor(.blue)
+                               //.padding()
+                               //.foregroundColor(.blue)
+                               //.font(.system(size: 90))
+                           
                        }
                        .sheet(isPresented: $showingSurahSelection) {
                            SurahSelectionView(viewModel: viewModel)
@@ -45,10 +47,10 @@ struct PrayerView: View {
                        Text("Loading...")
                    }
                }
-               .safeAreaPadding()
+               //.safeAreaPadding()
 
                
-               .navigationTitle(viewModel.selectedSurah?.englishName ?? "Loading...")
+               //.navigationTitle(viewModel.selectedSurah?.englishName ?? "Loading...").font(.system(size: 90))
                .onAppear {
                    if viewModel.selectedSurah == nil {
                        viewModel.fetchSurah()
