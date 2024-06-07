@@ -34,14 +34,20 @@ struct PrayerView: View {
                                Text("Ayah \(verse.verseKey)")
                                    .font(.headline)
                                Text(verse.textUthmani)
-                                   .font(.body)
+                                   .font(.system(size: 20))
                            }
                            .padding()
                        }
+                       //.listStyle(PlainListStyle())
+
+                       
                    } else {
                        Text("Loading...")
                    }
                }
+               .safeAreaPadding()
+
+               
                .navigationTitle(viewModel.selectedSurah?.englishName ?? "Loading...")
                .onAppear {
                    if viewModel.selectedSurah == nil {
@@ -150,7 +156,6 @@ class QuranViewModel: ObservableObject {
                            DispatchQueue.main.async {
                                self.surahs = decodedResponse.data
                                self.selectedSurah = self.surahs.first
-                               print(self.selectedSurah)
 
                            }
                        } catch {

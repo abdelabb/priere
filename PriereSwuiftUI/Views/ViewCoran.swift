@@ -21,22 +21,13 @@ struct ViewCoran: View {
    
     var body: some View {
         CustomTabView(selectedTab: $selectedTab)
-        InnerView(progress: progress)
+        //InnerView(progress: progress)
 
 
                
     }
  
-    struct InnerView: View {
-        @ObservedObject var progress: NotificationSettings
-
-        var body: some View {
-           // progress.$selectedAsr
-            Text("")
-
-            
-        }
-    }
+ //
 
     
     protocol TabViewProvider{
@@ -74,6 +65,7 @@ struct ViewCoran: View {
 
                     .tabItem {
                         Label("Prayer", systemImage: "alarm")
+
                     }
                     
                     NavigationView{
@@ -86,6 +78,7 @@ struct ViewCoran: View {
 
                         .tabItem {
                             Label("Boussol", systemImage: "compass.drawing")
+
                         }
                     
                     
@@ -100,24 +93,18 @@ struct ViewCoran: View {
                    
                     .tabItem {
                         Label("Coran", systemImage: "book")
-                    }
-                    .safeAreaPadding()
 
-                }
-            
-            
-            
+                    }
+
+
+
+                }                    
+
         }
         
         
     }
 }
-
-
-
-
-
-
 
 
 //extension ContentView: TabViewProvider {
