@@ -9,14 +9,14 @@ import SwiftUI
 
 struct BoussolView: View {
     @ObservedObject var locationManager = LocationManager()
-
+    
     var body: some View {
         VStack {
             if let heading = locationManager.heading {
                 let angle = Angle(degrees: locationManager.qiblaDirection - heading.magneticHeading)
                 
                 CompassNeedle(angle: angle)
-                    //.frame(width: 200, height: 200)
+                //.frame(width: 200, height: 200)
                     .padding()
                 
                 
@@ -37,15 +37,19 @@ struct BoussolView: View {
 
 struct CompassNeedle: View {
     let angle: Angle
-
+    @ObservedObject var locationManager = LocationManager()
+    
+    
     var body: some View {
-
+        
         VStack {
             Image("icons8")
+            //.resizable()
+            
             //Spacer()
-            .padding()
-               
-                
+                .padding()
+            
+            
             
             ZStack {
                 
@@ -53,22 +57,22 @@ struct CompassNeedle: View {
                     .stroke(lineWidth: 10)
                     .frame(width: 200, height: 200)
                     .foregroundColor(.gray)
-                    
-
+                
+                
                 
                 Text("Qibla: \(Int(angle.degrees))°")
                 
                 
                 VStack {
-
+                    
                     Image(systemName: "triangle.fill")
-
+                    
                         .resizable()
                         .frame(width: 20, height: 20)
                         .foregroundColor(.red)
                         .offset(y: -115)
                     // .rotationEffect(angle)
-//                     Spacer()
+                    //                     Spacer()
                 }
                 .rotationEffect(angle)
                 

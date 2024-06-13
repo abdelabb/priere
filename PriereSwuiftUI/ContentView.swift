@@ -82,7 +82,6 @@ struct ContentView: View {
     @State var timeUntilNextPrayer: TimeInterval?
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
     @State var nextPriere = PrayerType.fajr
-    //@State var scheduledNotificationIDs: [PrayerType: Set<String>] = [:]
     
     @State private var selectedTab = "One"
     @StateObject var notificationSettings = NotificationSettings()
@@ -97,57 +96,53 @@ struct ContentView: View {
     
     @State private var isRefreshing = false
     
-    var body: some View {
-         NotificationSound()
-        
-        
-        
-        
+    var localisationView: some View {
+        Text("\(countryName) : \(cityName)").padding(.bottom,5)
+    }
+    
+    var nextPrayerTitle: String {
+        if let timeUntilNextPrayer = timeUntilNextPrayer {
+            "\(nextPriere.rawValue.capitalized): \(formattedTime(timeUntilNextPrayer))"
+        } else {
+            "Impossible de calculer le temps restant jusqu'a la prochaine prière"
+        }
+    }
+    
+    var titleView: some View {
         VStack {
-            
-            
-            
-            Text("\(countryName) : \(cityName)").padding(.bottom,5)
-                .padding(.top,20)
             
             if let timeUntilNextPrayer = timeUntilNextPrayer {
                 
                 HStack(alignment: .center) {
-                    Text(" \(nextPriere):").bold().padding(.bottom,10)
-                    Text("\(formattedTime(timeUntilNextPrayer))").font(.system(size: 20)).bold().padding(.bottom,10)
+                    Text(" \(nextPriere):").bold()
+                    Text("\(formattedTime(timeUntilNextPrayer))").font(.system(size: 20)).bold()
                     
                 }
                 
-                .onReceive(timer) { input in
-                    date = input
-                    self.timeUntilNextPrayer = tempsRestantJusquaProchainePriere(prayerTimes: prayerTimes)
-                }
                 
             } else {
                 Text("Impossible de calculer le temps restant jusqu'à la prochaine prière")
             }
         }
+    }
+    
+    var body: some View {
+        NotificationSound()
         
-        //            VStack {
-        //                       Text(getFormattedDate())
-        //                           .bold()
-        //                           .font(.system(size: 20))
-        //                           .frame(maxWidth: .infinity, alignment: .center)
-        //                   }
         VStack {
             
-            //.padding(.top,10)
             
             List{
                 
                 
-                if let prayerTimes = prayerTimes{
-                    
-                    PrayertimeRow(prayer: "Fajr", time: prayerTimes.Fajr, selectedMode: $selectedFajr)
-                    PrayertimeRow(prayer: "Dhuhr", time: prayerTimes.Dhuhr, selectedMode: $selectedDhor)
-                    PrayertimeRow(prayer: "Asr", time: prayerTimes.Asr, selectedMode: $selectedAsr)
-                    PrayertimeRow(prayer: "Maghrib",time: prayerTimes.Maghrib, selectedMode:  $selectedMaghreb)
-                    PrayertimeRow(prayer: "Isha",time: prayerTimes.Isha, selectedMode: $selectedisha)
+                if let prayerTimes = prayerTimes {
+                    Section("\(countryName) : \(cityName)") {
+                        PrayertimeRow(prayer: "Fajr", time: prayerTimes.Fajr, selectedMode: $selectedFajr)
+                        PrayertimeRow(prayer: "Dhuhr", time: prayerTimes.Dhuhr, selectedMode: $selectedDhor)
+                        PrayertimeRow(prayer: "Asr", time: prayerTimes.Asr, selectedMode: $selectedAsr)
+                        PrayertimeRow(prayer: "Maghrib",time: prayerTimes.Maghrib, selectedMode:  $selectedMaghreb)
+                        PrayertimeRow(prayer: "Isha",time: prayerTimes.Isha, selectedMode: $selectedisha)
+                    }
                     
                 }else{
                     
@@ -156,13 +151,14 @@ struct ContentView: View {
                 
             }
         }
-        //.listStyle(PlainListStyle())
-        //.background(Color.red)
-        
-        
-        
-        .safeAreaPadding(.top,65)
-        
+        .onReceive(timer) { input in
+            date = input
+            if timeUntilNextPrayer != nil{
+                self.timeUntilNextPrayer = tempsRestantJusquaProchainePriere(prayerTimes: prayerTimes)
+
+            }
+        }
+        .navigationTitle(nextPrayerTitle)
         
         .refreshable {
             refreshData()
@@ -247,13 +243,13 @@ struct ContentView: View {
         }
     }
     func executerOnappear() {
-       // cancelAllLocalNotifications()
+        // cancelAllLocalNotifications()
         DispatchQueue.main.async {
             reverseGeocode(latitude: lat, longitude: long)
             
             fetchPrayerTimes(latitude: lat, longitude: long, date: date.formatted())
             //NotificationSound()
-
+            
         }
     }
     
@@ -315,14 +311,7 @@ struct ContentView: View {
         //let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 10, repeats: false)
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-        
-//        center.getPendingNotificationRequests { requests in
-//            let identifiers = requests.map { $0.identifier }
-//            if identifiers.contains(request.identifier) {
-//                return
-//            }
-//        }
-        
+    
         center.add(request)
         
         
